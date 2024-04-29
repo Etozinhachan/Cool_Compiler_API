@@ -7,9 +7,9 @@ ENV PYTHON_PIP_VERSION 20.1
 ENV DEBIAN_FRONTEND noninteractive
 
 RUN apt-get update
-RUN apt-get -y install gcc mono-mcs golang-go \
-    default-jre default-jdk nodejs npm \
-    python3-pip python3 curl && \
+RUN apt-get -y install gcc mono-mcs \
+    nodejs npm \
+    curl && \
     rm -rf /var/lib/apt/lists/*
 
 ENV NODE_VERSION=16.13.2

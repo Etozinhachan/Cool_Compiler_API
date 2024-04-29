@@ -8,6 +8,8 @@ const {spawn} = require("child_process");
 async function runCode({language = "", code = "", input = ""}) {
     const timeout = 30;
 
+    console.log('\nMEOW-------------------\n' + code + '\n-----------------------------MEOW\n')
+
     if (code === "")
         throw {
             status: 400,
@@ -69,6 +71,12 @@ async function runCode({language = "", code = "", input = ""}) {
         executeCode.stdout.on('data', (data) => {
             output += data.toString();
         });
+
+        executeCode.stdin.on('data', (data) => {
+            output += data.toString();
+        });
+
+        console.log(executeCode.stdin)
 
         executeCode.stderr.on('data', (data) => {
             error += data.toString();

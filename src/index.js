@@ -24,8 +24,14 @@ const sendResponse = (res, statusCode, body) => {
 
 app.post("/", async (req, res) => {
     try {
+        console.log('testing')
+        console.log(req.body)
         const output = await runCode(req.body)
+        console.log('testing2')
+        
+        console.log(output)
         sendResponse(res, 200, output)
+
     } catch (err) {
         sendResponse(res, err?.status || 500, err)
     }
