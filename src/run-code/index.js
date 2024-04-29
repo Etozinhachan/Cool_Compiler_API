@@ -56,7 +56,7 @@ async function runCode({language = "", code = "", input = ""}) {
                 error: `CodeX API Timed Out. Your code took too long to execute, over ${timeout} seconds. Make sure you are sending input as payload if your code expects an input.`
             })
         }, timeout * 1000);
-
+        //executeCode.stdin.pipe(process.stdout)
         if (input !== "") {
             input.split('\n').forEach((line) => {
                 executeCode.stdin.write(`${line}\n`);
@@ -64,32 +64,38 @@ async function runCode({language = "", code = "", input = ""}) {
             executeCode.stdin.end();
         }
 
+        //executeCode.stdout.pipe(process.stdout)
+        
+
         executeCode.stdin.on('error', (err) => {
             console.log('stdin err', err);
         });
 
         executeCode.stdout.on('data', (data) => {
             output += data.toString();
+            output += "\n";
         });
 
         executeCode.stdin.on('data', (data) => {
-            output += data.toString();
+            //output += data.toString();
+            console.log(data)
         });
 
-        console.log(executeCode.stdin)
+        //console.log(executeCode.stdin)
 
         executeCode.stderr.on('data', (data) => {
             error += data.toString();
         });
 
         executeCode.on('exit', (err) => {
+            //console.log(output)
             clearTimeout(timer);
             resolve({output, error});
         });
     })
 
     await removeCodeFile(jobID, language, outputExt);
-
+    //console.log(result)
     return {
         ...result,
         language,
