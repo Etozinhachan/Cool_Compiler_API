@@ -47,7 +47,7 @@ async function runCode({language = "", code = "", input = ""}) {
         let output = "", error = "";
 
         const timer = setTimeout(async () => {
-            executeCode.kill("SIGHUP");
+            executeCode.kill("SIGINT");
 
             await removeCodeFile(jobID, language, outputExt);
 
@@ -77,7 +77,7 @@ async function runCode({language = "", code = "", input = ""}) {
         });
 
         executeCode.stdin.on('data', (data) => {
-            //output += data.toString();
+            output += data.toString();
             console.log(data)
         });
 
