@@ -10,7 +10,6 @@ const {info} = require("./run-code/info");
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
-app.use(cors());
 
 const sendResponse = (res, statusCode, body) => {
     const timeStamp = Date.now()
